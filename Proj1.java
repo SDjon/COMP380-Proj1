@@ -6,6 +6,8 @@ import java.io.IOException;
 
 public class Proj1 {
 
+
+
     public static void main(String[] args) {
         System.out.println("Welcome to our first neural network - A Perceptron Net!");
         System.out.println("1) Enter 1 to train the net on a data file");
@@ -54,26 +56,29 @@ public class Proj1 {
         //number of epochs before convergence
         int epochsUsed = 0;
 
+        Scanner scan2 = new Scanner(System.in);
+
         System.out.println("Enter the training data file name:");
-        String fileNameInput = scanner.nextLine();
+        String fileNameInput = scan2.nextLine();
+        System.out.println(fileNameInput);
 
         System.out.println("Enter 0 to initialize weights to 0, enter 1 to initialize weights to random values between -0.5 and 0.5:");
-        int initWeightsBool = scanner.nextInt();
+        int initWeightsBool = scan2.nextInt();
 
         System.out.println("Enter the maximum number of training epochs:");
-        int maxEpochs = scanner.nextInt();
+        int maxEpochs = scan2.nextInt();
 
         System.out.println("Enter a file name to save the trained weight values:");
-        String fileNameOutput = scanner.nextLine();
+        String fileNameOutput = scan2.nextLine();
 
         System.out.println("Enter the learning rate alpha from 0 to 1 but not including 0:");
-        double learningRate = scanner.nextDouble();
+        double learningRate = scan2.nextDouble();
 
         System.out.println("Enter the threshold theta:");
-        double thresholdTheta = scanner.nextDouble();
+        double thresholdTheta = scan2.nextDouble();
 
         System.out.println("Enter the threshold to be used for measuring weight changes:");
-        double thresholdWeightChange = scanner.nextDouble();
+        double thresholdWeightChange = scan2.nextDouble();
 
         //call training method
         //params are fileNameInput, initWeightsBool, maxEpochs, fileNameOutput, learningRate, thresholdTheta, thresholdWeightChange
@@ -106,31 +111,77 @@ public class Proj1 {
         try (BufferedReader reader = new BufferedReader(new FileReader(file_path))) {
             String line;
 
-            int[][] w_i_j = new int[7][9];
-            int[][] w_b_c;
-            while ((line = reader.readLine()) != null) {
-                // Skip first 5 lines
-                for (int i = 0; i < 5; i++) {
-                    reader.readLine();
-                }
+            //headerData
+            int rowDimension = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
+            int colDimension = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
+            int outputDimension = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
+            int numberOfLetters = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
+            reader.readLine();
 
-                for (int i = 0; i < 9; i++) {
+            System.out.println(rowDimension + ", " + colDimension + ", " + outputDimension + ", " + numberOfLetters);
+
+            //initialize weights and stuff
+            int[][] weights_j_i = new int[7][64];
+            int[][] input_letter_i = new int[21][64];
+            int[][] target_letter_j = new int[21][7];
+
+            for(int letter = 0; letter < 21; letter++) {
+
+                // 9 row data is found in header (start reading block
+                int placeInInputVector = 1;
+                //at beginning of block of sample data
+                //bias is awlays 1
+                input_letter_i[letter][0] = 1;
+                for (int row = 0; row < 9; row++) {
+
                     line = reader.readLine();
                     String[] numbers = line.trim().split("\\s+");
-                    if (numbers.length != 7) { // Ensure each row has exactly 7 elements
-                        System.out.println("Invalid row length at line " + (numbers.length + 1));
-                        continue;
-                    }
-                    for (int j = 0; j < 7; j++) {
-                        w_i_j[i][j] = Integer.parseInt(numbers[j]);
-                    }
-                    i++;
-                }
 
+
+                    for (int i = placeInInputVector; i < placeInInputVector+7; i++) {
+                        input_letter_i[letter][i] = Integer.parseInt(numbers[(i-1) % 7]);
+                        //read all into 1 vector
+                    }
+                    placeInInputVector += 7;
+
+
+                }
+                reader.readLine(); //skip the space between input and target
+
+                //target data
+                //get 1 vector of training data
+
+                line = reader.readLine();
+                String[] targetNumberValues = line.trim().split("\\s+");
+                for (int j = 0; j < 7; j++){
+                    target_letter_j[letter][j] = Integer.parseInt(targetNumberValues[j]);
+                }
+                reader.readLine(); //in the future, keep this as label
+                reader.readLine();
             }
+            int count = 0;
+            for (int i = 0; i < 21; i++){
+                for (int j= 0;j< 64; j++){
+                    System.out.print(input_letter_i[i][j] + " ");
+                }
+                System.out.println();
+                count++;
+            }
+            System.out.println(count);
+
+
+            //train
+            //trainAlgorithm(weights_j_i,input_letter_i,target_letter_j);
+
+
+
         } catch (IOException e) {
             // Handle file reading errors
             e.printStackTrace();
         }
+    }
+
+    public static void trainAlgorithm(String file_path, int initWeightsBool, int max_training_epochs, String fileNameOutput, double learning_rate, double thresholdTheta, double thresholdWeightChange){
+        boolean converged = false;
     }
 }
