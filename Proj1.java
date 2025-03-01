@@ -111,53 +111,54 @@ public class Proj1 {
 
 
             // Skip first 5 lines
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 4; i++) {
                 reader.readLine();
             }
             //initialize weights and stuff
-            int[][] w_j_i = new int[7][64];
+            int[][] weights_j_i = new int[7][64];
             int[][] input_letter_i = new int[21][64];
             int[][] target_letter_j = new int[21][7];
 
-
+            int letter = 0;
             while ((line = reader.readLine()) != null) {
 
-
                 // 9 row data is found in header (start reading block
-                for (int letter = 0; letter < 9 +3; letter++) {
-
-                    //at beginning of block of sample data
-                    //bias is awlays 1
-                    input_letter_i[letter][0] = 1;
+                int placeInInputVector = 1;
+                //at beginning of block of sample data
+                //bias is awlays 1
+                input_letter_i[letter][0] = 1;
+                for (int row = 0; row < 9; row++) {
 
                     line = reader.readLine();
                     String[] numbers = line.trim().split("\\s+");
-                    if (numbers.length != 7) { // Ensure each row has exactly 7 elements
-                        System.out.println("Invalid row length at line " + (numbers.length + 1));
-                        continue;
-                        //error
-                    }
-                    for (int i = 0; i < 7; i++) {
-                        input_letter_i[letter][i] = Integer.parseInt(numbers[letter]);
+
+
+                    for (int i = placeInInputVector; i < placeInInputVector+7; i++) {
+                        input_letter_i[letter][i] = Integer.parseInt(numbers[i]);
                         //read all into 1 vector
                     }
+                    placeInInputVector += 7;
 
-                    reader.readLine(); //skip the space between input and target
 
-                    //target data
-                    //get 1 vector of training data
-
-                    line = reader.readLine();
-                    String[] targetNumberValues = line.trim().split("\\s+");
-                    for (int j = 0; j < 7; j++){
-                        target_letter_j[letter][j] = Integer.parseInt(targetNumberValues[j]);
-                    }
-                    reader.readLine(); //in the future, keep this as label
                 }
+                reader.readLine(); //skip the space between input and target
 
+                //target data
+                //get 1 vector of training data
+
+                line = reader.readLine();
+                String[] targetNumberValues = line.trim().split("\\s+");
+                for (int j = 0; j < 7; j++){
+                    target_letter_j[letter][j] = Integer.parseInt(targetNumberValues[j]);
+                }
+                reader.readLine(); //in the future, keep this as label
+                letter++;
             }
 
             //train
+            trainAlgorithm(weights_j_i,input_letter_i,target_letter_j, );
+
+
 
         } catch (IOException e) {
             // Handle file reading errors
@@ -166,6 +167,6 @@ public class Proj1 {
     }
 
     public static void trainAlgorithm(String file_path, int initWeightsBool, int max_training_epochs, String fileNameOutput, double learning_rate, double thresholdTheta, double thresholdWeightChange){
-        boolean converged = false
+        boolean converged = false;
     }
 }
