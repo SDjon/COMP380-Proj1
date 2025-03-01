@@ -89,7 +89,7 @@ public class Proj1 {
         thresholdWeightChange = scanner.nextDouble();
 
         //call training method
-        training(trainingDataFileName, initWeightsBool, maxEpochs, outputWeightFileName, learningRate, thresholdTheta, thresholdWeightChange);
+        training();
     }
 
     public static void testingSpecs(Scanner scanner){
@@ -116,8 +116,8 @@ public class Proj1 {
     /**
      * this function reads the input from a file into input_letter_i and target_letter_j, which encases all the input for each letter
      * */
-    public static void training(String file_path, int initWeightsBool, int max_training_epochs, String fileNameOutput, double learning_rate, double thresholdTheta, double thresholdWeightChange){
-        try (BufferedReader reader = new BufferedReader(new FileReader(file_path))) {
+    public static void training(){
+        try (BufferedReader reader = new BufferedReader(new FileReader(trainingDataFileName))) {
             String line; //reused var, for when contents from readline are read
 
             //headerData
@@ -173,7 +173,7 @@ public class Proj1 {
 
 
             //train
-            weights_j_i = trainAlgorithm();
+            weights_j_i = trainAlgorithm(weights_j_i,input_letter_i,target_letter_j);
 
 
 
@@ -195,8 +195,10 @@ public class Proj1 {
         System.out.println("Number of Rows: " + count);
     }
 
-    public static int[][] trainAlgorithm(double[][] weights_j_i,int[][] input_letter_i,int[][] target_letter_j, String file_path, int initWeightsBool, int max_training_epochs, String fileNameOutput, double learning_rate, double thresholdTheta, double thresholdWeightChange){
+    public static double[][] trainAlgorithm(double[][] weights_j_i,int[][] input_letter_i,int[][] target_letter_j){
         boolean converged = false;
 
+        //write algorithm
+        return new double[67][9];
     }
 }
