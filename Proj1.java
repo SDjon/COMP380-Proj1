@@ -77,7 +77,7 @@ public class Proj1 {
 
         //call training method
         //params are fileNameInput, initWeightsBool, maxEpochs, fileNameOutput, learningRate, thresholdTheta, thresholdWeightChange
-
+        training(fileNameInput, initWeightsBool, maxEpochs, fileNameOutput, learningRate, thresholdTheta, thresholdWeightChange);
     }
 
     public static void testingSpecs(Scanner scanner){
@@ -101,36 +101,36 @@ public class Proj1 {
         }
         return false;
     }
-}
 
-public class training(file_path, max_training_epochs, threshold, learning_rate)
-    String file = file_path;
-    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-        String line;
+    public static void training(String file_path, int initWeightsBool, int max_training_epochs, String fileNameOutput, double learning_rate, double thresholdTheta, double thresholdWeightChange){
+        try (BufferedReader reader = new BufferedReader(new FileReader(file_path))) {
+            String line;
 
-        int[][] w_i_j = new int[7][9];
-        int[][] w_b_c
-        while ((line = reader.readLine()) != null) {
-            // Skip first 5 lines
-            for (int i = 0; i < 5; i++) {
-                reader.readLine();
-            }
-            
-            for (int i = 0; i < 9; i++) {
-                line = reader.readLine();
-                String[] numbers = line.trim().split("\\s+");
-                if (numbers.length != 7) { // Ensure each row has exactly 7 elements
-                    System.out.println("Invalid row length at line " + (row + 1));
-                    continue;
+            int[][] w_i_j = new int[7][9];
+            int[][] w_b_c;
+            while ((line = reader.readLine()) != null) {
+                // Skip first 5 lines
+                for (int i = 0; i < 5; i++) {
+                    reader.readLine();
                 }
-                for (int j = 0; j < 7; j++) {
-                    w_i_j[i][j] = Integer.parseInt(numbers[j]);
+
+                for (int i = 0; i < 9; i++) {
+                    line = reader.readLine();
+                    String[] numbers = line.trim().split("\\s+");
+                    if (numbers.length != 7) { // Ensure each row has exactly 7 elements
+                        System.out.println("Invalid row length at line " + (numbers.length + 1));
+                        continue;
+                    }
+                    for (int j = 0; j < 7; j++) {
+                        w_i_j[i][j] = Integer.parseInt(numbers[j]);
+                    }
+                    i++;
                 }
-                i++;
+
             }
-            
+        } catch (IOException e) {
+            // Handle file reading errors
+            e.printStackTrace();
         }
-    } catch (IOException e) {
-        // Handle file reading errors
-        e.printStackTrace();
     }
+}
