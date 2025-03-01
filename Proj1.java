@@ -6,7 +6,19 @@ import java.io.IOException;
 
 public class Proj1 {
 
+    //global var for training
+    public static String trainingDataFileName;
+    public static int initWeightsBool;
+    public static int maxEpochs;
+    public static String outputWeightFileName;
+    public static double learningRate;
+    public static double thresholdTheta;
+    public static double thresholdWeightChange;
 
+    //global var for testing
+    public static String trainedWeightsFileName;
+    public static String testingDataFileName;
+    public static String outputTestResultsFileName;
 
     public static void main(String[] args) {
         System.out.println("Welcome to our first neural network - A Perceptron Net!");
@@ -55,29 +67,29 @@ public class Proj1 {
 
         System.out.println("Enter the training data file name:");
         scanner.nextLine(); //get rid of newline
-        String fileNameInput = scanner.nextLine();
+        trainingDataFileName = scanner.nextLine();
 
         System.out.println("Enter 0 to initialize weights to 0, enter 1 to initialize weights to random values between -0.5 and 0.5:");
-        int initWeightsBool = scanner.nextInt();
+        initWeightsBool = scanner.nextInt();
 
         System.out.println("Enter the maximum number of training epochs:");
-        int maxEpochs = scanner.nextInt();
+        maxEpochs = scanner.nextInt();
 
         System.out.println("Enter a file name to save the trained weight values:");
         scanner.nextLine();
-        String fileNameOutput = scanner.nextLine();
+        outputWeightFileName = scanner.nextLine();
 
         System.out.println("Enter the learning rate alpha from 0 to 1 but not including 0:");
-        double learningRate = scanner.nextDouble();
+        learningRate = scanner.nextDouble();
 
         System.out.println("Enter the threshold theta:");
-        double thresholdTheta = scanner.nextDouble();
+        thresholdTheta = scanner.nextDouble();
 
         System.out.println("Enter the threshold to be used for measuring weight changes:");
-        double thresholdWeightChange = scanner.nextDouble();
+        thresholdWeightChange = scanner.nextDouble();
 
         //call training method
-        training(fileNameInput, initWeightsBool, maxEpochs, fileNameOutput, learningRate, thresholdTheta, thresholdWeightChange);
+        training(trainingDataFileName, initWeightsBool, maxEpochs, outputWeightFileName, learningRate, thresholdTheta, thresholdWeightChange);
     }
 
     public static void testingSpecs(Scanner scanner){
@@ -118,7 +130,7 @@ public class Proj1 {
             System.out.println(rowDimension + ", " + colDimension + ", " + outputDimension + ", " + numberOfLetters);
 
             //initialize weights and stuff
-            int[][] weights_j_i = new int[7][64];
+            double[][] weights_j_i = new double[7][64];
             int[][] input_letter_i = new int[21][64];
             int[][] target_letter_j = new int[21][7];
 
@@ -161,7 +173,7 @@ public class Proj1 {
 
 
             //train
-            //trainAlgorithm(weights_j_i,input_letter_i,target_letter_j);
+            weights_j_i = trainAlgorithm();
 
 
 
@@ -183,7 +195,7 @@ public class Proj1 {
         System.out.println("Number of Rows: " + count);
     }
 
-    public static void trainAlgorithm(String file_path, int initWeightsBool, int max_training_epochs, String fileNameOutput, double learning_rate, double thresholdTheta, double thresholdWeightChange){
+    public static int[][] trainAlgorithm(double[][] weights_j_i,int[][] input_letter_i,int[][] target_letter_j, String file_path, int initWeightsBool, int max_training_epochs, String fileNameOutput, double learning_rate, double thresholdTheta, double thresholdWeightChange){
         boolean converged = false;
 
     }
