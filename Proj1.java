@@ -56,26 +56,29 @@ public class Proj1 {
         //number of epochs before convergence
         int epochsUsed = 0;
 
+        Scanner scan2 = new Scanner(System.in);
+
         System.out.println("Enter the training data file name:");
-        String fileNameInput = scanner.nextLine();
+        String fileNameInput = scan2.nextLine();
+        System.out.println(fileNameInput);
 
         System.out.println("Enter 0 to initialize weights to 0, enter 1 to initialize weights to random values between -0.5 and 0.5:");
-        int initWeightsBool = scanner.nextInt();
+        int initWeightsBool = scan2.nextInt();
 
         System.out.println("Enter the maximum number of training epochs:");
-        int maxEpochs = scanner.nextInt();
+        int maxEpochs = scan2.nextInt();
 
         System.out.println("Enter a file name to save the trained weight values:");
-        String fileNameOutput = scanner.nextLine();
+        String fileNameOutput = scan2.nextLine();
 
         System.out.println("Enter the learning rate alpha from 0 to 1 but not including 0:");
-        double learningRate = scanner.nextDouble();
+        double learningRate = scan2.nextDouble();
 
         System.out.println("Enter the threshold theta:");
-        double thresholdTheta = scanner.nextDouble();
+        double thresholdTheta = scan2.nextDouble();
 
         System.out.println("Enter the threshold to be used for measuring weight changes:");
-        double thresholdWeightChange = scanner.nextDouble();
+        double thresholdWeightChange = scan2.nextDouble();
 
         //call training method
         //params are fileNameInput, initWeightsBool, maxEpochs, fileNameOutput, learningRate, thresholdTheta, thresholdWeightChange
@@ -108,19 +111,21 @@ public class Proj1 {
         try (BufferedReader reader = new BufferedReader(new FileReader(file_path))) {
             String line;
 
+            //headerData
+            int rowDimension = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
+            int colDimension = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
+            int outputDimension = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
+            int numberOfLetters = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
+            reader.readLine();
 
+            System.out.println(rowDimension + ", " + colDimension + ", " + outputDimension + ", " + numberOfLetters);
 
-            // Skip first 5 lines
-            for (int i = 0; i < 4; i++) {
-                reader.readLine();
-            }
             //initialize weights and stuff
             int[][] weights_j_i = new int[7][64];
             int[][] input_letter_i = new int[21][64];
             int[][] target_letter_j = new int[21][7];
 
-            int letter = 0;
-            while ((line = reader.readLine()) != null) {
+            for(int letter = 0; letter < 21; letter++) {
 
                 // 9 row data is found in header (start reading block
                 int placeInInputVector = 1;
@@ -134,7 +139,7 @@ public class Proj1 {
 
 
                     for (int i = placeInInputVector; i < placeInInputVector+7; i++) {
-                        input_letter_i[letter][i] = Integer.parseInt(numbers[i]);
+                        input_letter_i[letter][i] = Integer.parseInt(numbers[(i-1) % 7]);
                         //read all into 1 vector
                     }
                     placeInInputVector += 7;
@@ -152,11 +157,21 @@ public class Proj1 {
                     target_letter_j[letter][j] = Integer.parseInt(targetNumberValues[j]);
                 }
                 reader.readLine(); //in the future, keep this as label
-                letter++;
+                reader.readLine();
             }
+            int count = 0;
+            for (int i = 0; i < 21; i++){
+                for (int j= 0;j< 64; j++){
+                    System.out.print(input_letter_i[i][j] + " ");
+                }
+                System.out.println();
+                count++;
+            }
+            System.out.println(count);
+
 
             //train
-            trainAlgorithm(weights_j_i,input_letter_i,target_letter_j, );
+            //trainAlgorithm(weights_j_i,input_letter_i,target_letter_j);
 
 
 
