@@ -20,6 +20,11 @@ public class Proj1 {
     public static String testingDataFileName;
     public static String outputTestResultsFileName;
 
+    //global data
+    public static int[][] global_input_letter_i;
+    public static int[][] global_target_letter_j;
+    public static double[][] global_weights_j_i;
+
     public static void main(String[] args) {
         System.out.println("Welcome to our first neural network - A Perceptron Net!");
         System.out.println("1) Enter 1 to train the net on a data file");
@@ -88,15 +93,40 @@ public class Proj1 {
         System.out.println("Enter the threshold to be used for measuring weight changes:");
         thresholdWeightChange = scanner.nextDouble();
 
-        //call training method
-        training();
+        scanner.close(); // close scnner
+
+        //call data read method
+        readData(trainingDataFileName);
+
+        //train
+        trainAlgorithm(global_weights_j_i,global_input_letter_i,global_target_letter_j);
+
+
     }
 
     public static void testingSpecs(Scanner scanner){
-        System.out.println("testing");
 
+        System.out.println("Enter the trained net weight file name:");
+        scanner.nextLine(); //get rid of newline
+        trainedWeightsFileName = scanner.nextLine();
+
+        System.out.println("Enter the testing/deploying dataset file name:");
+        testingDataFileName = scanner.nextLine();
+
+        System.out.println("Enter a file name to save the testing/deploying results:");
+        outputTestResultsFileName = scanner.nextLine();
+
+        scanner.close();
+
+        //call data read method
+        readData(testingDataFileName);
+
+        //call another method to read weights
+
+        //test
 
     }
+
     private static boolean validateInteger(Scanner myScanner) {
         if (!myScanner.hasNextInt()) {
             System.out.println("Invalid x: Please enter an integer.");
@@ -105,19 +135,11 @@ public class Proj1 {
         }
         return false;
     }
-    private static boolean validateString(Scanner myScanner){
-        if (!myScanner.hasNextLine()){
-            System.out.println("Invalid x: Please enter a string");
-            myScanner.close();
-            return true;
-        }
-        return false;
-    }
     /**
      * this function reads the input from a file into input_letter_i and target_letter_j, which encases all the input for each letter
      * */
-    public static void training(){
-        try (BufferedReader reader = new BufferedReader(new FileReader(trainingDataFileName))) {
+    public static void readData(String filename){
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line; //reused var, for when contents from readline are read
 
             //headerData
@@ -170,11 +192,9 @@ public class Proj1 {
 
             print2DIntArray(input_letter_i);
             print2DIntArray(target_letter_j);
-
-
-            //train
-            weights_j_i = trainAlgorithm(weights_j_i,input_letter_i,target_letter_j);
-
+            global_input_letter_i = input_letter_i;
+            global_target_letter_j = target_letter_j;
+            global_weights_j_i = weights_j_i;
 
 
         } catch (IOException e) {
@@ -195,10 +215,9 @@ public class Proj1 {
         System.out.println("Number of Rows: " + count);
     }
 
-    public static double[][] trainAlgorithm(double[][] weights_j_i,int[][] input_letter_i,int[][] target_letter_j){
+    public static void trainAlgorithm(double[][] weights_j_i,int[][] input_letter_i,int[][] target_letter_j){
         boolean converged = false;
 
         //write algorithm
-        return new double[67][9];
     }
 }
