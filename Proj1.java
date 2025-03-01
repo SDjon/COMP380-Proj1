@@ -53,35 +53,30 @@ public class Proj1 {
 
     public static void trainingSpecs(Scanner scanner){
 
-        //number of epochs before convergence
-        int epochsUsed = 0;
-
-        Scanner scan2 = new Scanner(System.in);
-
         System.out.println("Enter the training data file name:");
-        String fileNameInput = scan2.nextLine();
-        System.out.println(fileNameInput);
+        scanner.nextLine(); //get rid of newline
+        String fileNameInput = scanner.nextLine();
 
         System.out.println("Enter 0 to initialize weights to 0, enter 1 to initialize weights to random values between -0.5 and 0.5:");
-        int initWeightsBool = scan2.nextInt();
+        int initWeightsBool = scanner.nextInt();
 
         System.out.println("Enter the maximum number of training epochs:");
-        int maxEpochs = scan2.nextInt();
+        int maxEpochs = scanner.nextInt();
 
         System.out.println("Enter a file name to save the trained weight values:");
-        String fileNameOutput = scan2.nextLine();
+        scanner.nextLine();
+        String fileNameOutput = scanner.nextLine();
 
         System.out.println("Enter the learning rate alpha from 0 to 1 but not including 0:");
-        double learningRate = scan2.nextDouble();
+        double learningRate = scanner.nextDouble();
 
         System.out.println("Enter the threshold theta:");
-        double thresholdTheta = scan2.nextDouble();
+        double thresholdTheta = scanner.nextDouble();
 
         System.out.println("Enter the threshold to be used for measuring weight changes:");
-        double thresholdWeightChange = scan2.nextDouble();
+        double thresholdWeightChange = scanner.nextDouble();
 
         //call training method
-        //params are fileNameInput, initWeightsBool, maxEpochs, fileNameOutput, learningRate, thresholdTheta, thresholdWeightChange
         training(fileNameInput, initWeightsBool, maxEpochs, fileNameOutput, learningRate, thresholdTheta, thresholdWeightChange);
     }
 
@@ -106,10 +101,12 @@ public class Proj1 {
         }
         return false;
     }
-
+    /**
+     * this function reads the input from a file into input_letter_i and target_letter_j, which encases all the input for each letter
+     * */
     public static void training(String file_path, int initWeightsBool, int max_training_epochs, String fileNameOutput, double learning_rate, double thresholdTheta, double thresholdWeightChange){
         try (BufferedReader reader = new BufferedReader(new FileReader(file_path))) {
-            String line;
+            String line; //reused var, for when contents from readline are read
 
             //headerData
             int rowDimension = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
@@ -150,24 +147,17 @@ public class Proj1 {
 
                 //target data
                 //get 1 vector of training data
-
                 line = reader.readLine();
                 String[] targetNumberValues = line.trim().split("\\s+");
                 for (int j = 0; j < 7; j++){
                     target_letter_j[letter][j] = Integer.parseInt(targetNumberValues[j]);
                 }
-                reader.readLine(); //in the future, keep this as label
-                reader.readLine();
+                reader.readLine(); //in the future, keep this as label maybe
+                reader.readLine();//skip space
             }
-            int count = 0;
-            for (int i = 0; i < 21; i++){
-                for (int j= 0;j< 64; j++){
-                    System.out.print(input_letter_i[i][j] + " ");
-                }
-                System.out.println();
-                count++;
-            }
-            System.out.println(count);
+
+            print2DIntArray(input_letter_i);
+            print2DIntArray(target_letter_j);
 
 
             //train
@@ -181,7 +171,20 @@ public class Proj1 {
         }
     }
 
+    public static void print2DIntArray(int[][] arr){
+        int count = 0;
+        for (int i = 0; i < arr.length; i++){
+            for (int j= 0;j< arr[i].length; j++){
+                System.out.print(arr[i][j] + " ");
+            }
+            System.out.println();
+            count++;
+        }
+        System.out.println("Number of Rows: " + count);
+    }
+
     public static void trainAlgorithm(String file_path, int initWeightsBool, int max_training_epochs, String fileNameOutput, double learning_rate, double thresholdTheta, double thresholdWeightChange){
         boolean converged = false;
+
     }
 }
