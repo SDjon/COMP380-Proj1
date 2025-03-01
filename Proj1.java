@@ -80,13 +80,12 @@ public class Proj1 {
         return false;
     }
 
-    public static void training(String file_path, int max_training_epochs, double threshold, double learning_rate){
-        String file = file_path;
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+    public static void training(String file_path, int initWeightsBool, int max_training_epochs, String fileNameOutput, double learning_rate, double thresholdTheta, double thresholdWeightChange){
+        try (BufferedReader reader = new BufferedReader(new FileReader(file_path))) {
             String line;
 
             int[][] w_i_j = new int[7][9];
-            int[][] w_b_c
+            int[][] w_b_c;
             while ((line = reader.readLine()) != null) {
                 // Skip first 5 lines
                 for (int i = 0; i < 5; i++) {
@@ -97,7 +96,7 @@ public class Proj1 {
                     line = reader.readLine();
                     String[] numbers = line.trim().split("\\s+");
                     if (numbers.length != 7) { // Ensure each row has exactly 7 elements
-                        System.out.println("Invalid row length at line " + (row + 1));
+                        System.out.println("Invalid row length at line " + (numbers.length + 1));
                         continue;
                     }
                     for (int j = 0; j < 7; j++) {
