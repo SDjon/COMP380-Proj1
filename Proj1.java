@@ -5,7 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Proj1 {
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         System.out.println("Welcome to our first neural network - A Perceptron Net!");
         System.out.println("1) Enter 1 to train the net on a data file");
         System.out.println("2) Enter 2 to test the net on a data file");
@@ -20,11 +21,32 @@ public class Proj1 {
 
         if (action == 1) {
             trainingSpecs(scanner);
-        } else if (action == 2){
+        } else if (action == 2) {
             testingSpecs(scanner);
         }
 
 
+    }
+
+    double calculateY_in( double [] weights, int[] inputs) {
+        double linearCombination = 0;
+        //Add the bias
+        linearCombination+= inputs[0];
+        for(int idx = 1; idx < inputs.length; idx++){
+            double product = (inputs[idx] * weights[idx]);
+            linearCombination += product;
+        }
+        return linearCombination;
+    }
+
+    int classifyLinearCombination(double linearCombination, double threshold) {
+        if (linearCombination > threshold) {
+            return 1;
+        } else if (linearCombination < (-1 * threshold)) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 
     public static void trainingSpecs(Scanner scanner){
