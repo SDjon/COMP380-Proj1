@@ -117,7 +117,7 @@ public class Proj1 {
         System.out.println("Enter the threshold to be used for measuring weight changes:");
         thresholdWeightChange = scanner.nextDouble();
 
-        scanner.close(); // close scnner
+        //scanner.close(); // close scnner
 
         //call data read method
         readData(trainingDataFileName);
@@ -150,7 +150,7 @@ public class Proj1 {
         System.out.println("Enter a file name to save the testing/deploying results:");
         outputTestResultsFileName = scanner.nextLine();
 
-        scanner.close();
+        //scanner.close();
 
         //call data read method
         readData(testingDataFileName);
