@@ -101,6 +101,8 @@ public class Proj1 {
         //train
         trainAlgorithm(global_weights_j_i,global_input_letter_i,global_target_letter_j);
 
+        //save weights to file
+
 
     }
 
@@ -123,7 +125,7 @@ public class Proj1 {
 
         //call another method to read weights
 
-        //test
+        //test and save outputs to a file
 
     }
 
