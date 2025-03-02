@@ -74,9 +74,8 @@ public class Proj1 {
     public static double calculateY_in( double [] weights, double[] inputs) {
         double linearCombination = 0;
         //Add the bias
-        linearCombination+= inputs[0];
-        for(int idx = 1; idx < inputs.length; idx++){
-            double product = (inputs[idx] * weights[idx-1]);
+        for(int idx = 0; idx < inputs.length; idx++){
+            double product = (inputs[idx] * weights[idx]);
             linearCombination += product;
         }
         return linearCombination;
@@ -121,8 +120,6 @@ public class Proj1 {
 
         //call data read method
         readData(trainingDataFileName);
-
-        //train
 
         //train
         int epochCountAfterTraining = trainAlgorithm(maxEpochs, outputWeightFileName, learningRate, thresholdTheta, thresholdWeightChange, global_weights_j_i, global_input_letter_i, global_target_letter_j, outputDimension, colDimension*outputDimension);
