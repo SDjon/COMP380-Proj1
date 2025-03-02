@@ -201,7 +201,7 @@ public class Proj1 {
 
                 int placeInInputVector = 1;
                 //bias is the first index of each row in the input matrix, making it 64 instead of 63
-                input_letter_i[letter][0] = 1; // TODO: Should bias be 1 or 0 to start?
+                input_letter_i[letter][0] = 1;
                 for (int row = 0; row < rowDimension; row++) {
 
                     line = reader.readLine();
@@ -319,9 +319,10 @@ public class Proj1 {
                 hasConverged = true;
             } else {
                 epochCount++;
-                saveWeightsToFile(outputFileName, epochCount, weights);
             }
         }
+
+        saveWeightsToFile(outputFileName, epochCount, weights);
 
         return (epochCount == maxEpochs) ? 0 : epochCount;
     }
