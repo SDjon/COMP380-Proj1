@@ -1,6 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -28,10 +26,29 @@ public class testing {
         Proj1.readData(testingDataFileName);
 
         //call another method to read weights
+        readWeights();
 
         //test and save outputs to a file
         runTesting();
         
+    }
+
+    public static void readWeights(){
+        try (BufferedReader reader = new BufferedReader(new FileReader(trainedWeightsFileName))){
+            String line;
+            reader.readLine(); //get rid of header
+            for (int j = 0; j < 7; j++){
+                line = reader.readLine();
+                String[] parts = line.split("[\\[\\],]+");
+                double[] nextWeightArray = new double[64];
+                for (int i =0; i< 64; i++){
+                    nextWeightArray[i] = Double.parseDouble(parts[i+1]);
+                }
+                Proj1.global_weights_j_i[j] = nextWeightArray;
+            }
+        } catch (Exception e){
+            System.out.println("problem getting weigths from file");
+        }
     }
 
     public static void runTesting() {
@@ -45,8 +62,8 @@ public class testing {
                 int[] classifiedOutput = classifySample(Proj1.global_input_letter_i[i]);
 
                 // Convert classified output to letter
-                char actualLetter = (char) ('A' + i);
-                char classifiedLetter = (char) ('A' + i); // Assume classification maps the same
+                char actualLetter = (char) ('A' + i); //TODO this should be read from file
+                char classifiedLetter = (char) ('A' + i); // TODO this should be found by output
 
                 // Write to file
                 writer.write("Actual Output:\n");
@@ -76,7 +93,7 @@ public class testing {
 
     private static int[] classifySample(double[] input) {
         int[] output = new int[Proj1.outputDimension];
-
+        //TODO weights are not being read from file
         for (int j = 0; j < Proj1.outputDimension; j++) {
             double netInput = 0.0;
 

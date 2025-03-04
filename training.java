@@ -16,17 +16,6 @@ public class training {
     public static double learningRate;
     public static double thresholdTheta;
     public static double thresholdWeightChange;
-
-    //global data
-    public static double[][] global_input_letter_i;
-    public static int[][] global_target_letter_j;
-    public static double[][] global_weights_j_i;
-
-    //global header vals
-    public static int rowDimension;
-    public static int colDimension;
-    public static int outputDimension;
-    public static int numberOfLetters;
     
 
     public static void trainingSpecs(Scanner scanner){
@@ -60,7 +49,7 @@ public class training {
         Proj1.readData(trainingDataFileName);
 
         //train
-        int epochCountAfterTraining = training.trainAlgorithm(maxEpochs, outputWeightFileName, learningRate, thresholdTheta, thresholdWeightChange, global_weights_j_i, global_input_letter_i, global_target_letter_j, outputDimension, colDimension*outputDimension);
+        int epochCountAfterTraining = training.trainAlgorithm(maxEpochs, outputWeightFileName, learningRate, thresholdTheta, thresholdWeightChange, Proj1.global_weights_j_i, Proj1.global_input_letter_i, Proj1.global_target_letter_j, Proj1.outputDimension, Proj1.colDimension*Proj1.outputDimension);
         if(epochCountAfterTraining == 0){
             System.out.println("Training did not converge in less than the max amount of epochs.");
         }
