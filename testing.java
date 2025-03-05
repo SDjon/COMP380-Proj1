@@ -22,9 +22,6 @@ public class testing {
         System.out.println("Enter a file name to save the testing/deploying results:");
         outputTestResultsFileName = scanner.nextLine();
 
-        System.out.println("Enter the threshold theta:");
-        training.thresholdTheta = scanner.nextDouble();
-
         //scanner.close();
 
         //call data read method
@@ -41,7 +38,7 @@ public class testing {
     public static void readWeights(){
         try (BufferedReader reader = new BufferedReader(new FileReader(trainedWeightsFileName))){
             String line;
-            reader.readLine(); //get rid of header
+            training.thresholdTheta = Double.parseDouble(reader.readLine().trim().split(" ")[1]); //get rid of header
             for (int j = 0; j < 7; j++){
                 line = reader.readLine();
                 String[] parts = line.split("[\\[\\],]+");
