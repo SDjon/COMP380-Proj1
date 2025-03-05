@@ -124,7 +124,7 @@ public class testing {
             double accuracy = (correctPredictions / (double) totalSamples) * 100;
             writer.write("Overall Classification Accuracy: " + String.format("%.2f", accuracy) + "%\n");
 
-            System.out.println("Testing completed. Results saved to " + outputTestResultsFileName);
+            System.out.println("Testing completed. Results saved to " + outputTestResultsFileName +"\n");
 
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());

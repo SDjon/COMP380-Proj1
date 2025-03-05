@@ -51,10 +51,10 @@ public class training {
         //train
         int epochCountAfterTraining = training.trainAlgorithm(maxEpochs, outputWeightFileName, learningRate, thresholdTheta, thresholdWeightChange, Proj1.global_weights_j_i, Proj1.global_input_letter_i, Proj1.global_target_letter_j, Proj1.outputDimension, Proj1.colDimension*Proj1.outputDimension);
         if(epochCountAfterTraining == 0){
-            System.out.println("Training did not converge in less than the max amount of epochs.");
+            System.out.println("Training did not converge in less than the max amount of epochs.\n");
         }
         else{
-            System.out.println("Training converged after "+epochCountAfterTraining+ " epochs");
+            System.out.println("Training converged after "+epochCountAfterTraining+ " epochs\n");
         }
 
         //save weights to file
