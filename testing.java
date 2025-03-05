@@ -141,7 +141,7 @@ public class testing {
             }
 
             // Apply threshold to determine output as -1, 0, or 1
-            output[j] = training.classifyLinearCombination(netInput,training.thresholdTheta); //TODO this should use activation function with specified theta
+            output[j] = training.classifyLinearCombination(netInput,training.thresholdTheta);
         }
         return output;
     }
