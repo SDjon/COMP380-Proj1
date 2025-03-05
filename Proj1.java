@@ -1,3 +1,27 @@
+/**
+ * Program Name: Projet 1 - Perceptron Neural Networks
+ * Authors: Kian Drees, Precee Ginigeme, Jonathan Rivera, Gianpaolo Tabora
+ * Last Date Modified: 3/5/2025
+ * Description:
+ *      This program implements a simple perceptron neural network for training
+ *      on letter data. It reads input data, initializes weights, trains the model
+ *      using a learning rate, and saves the final weights after convergence.
+ *      The perceptron uses bipolar values (-1,1) and the threshold theta 
+ *      determines classification sensitivity.
+ * 
+ * Usage: 
+ *      Run the program and follow the prompts to train the perceptron.
+ *      The trained weights will be saved to an output file.
+ * 
+ * Inputs:
+ *      Training data file with letter representations.
+ *      Learning rate, maximum epochs, threshold theta, and threshold weight change.
+ * 
+ * Outputs:
+ *      Trained weights stored in a file.
+ *      Console message indicating convergence status.
+ */
+
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -112,7 +136,7 @@ public class Proj1 {
                 for (int j = 0; j < 7; j++){
                     target_letter_j[letter][j] = Integer.parseInt(targetNumberValues[j]);
                 }
-                labels[letter] = reader.readLine();
+                labels[letter] = String.valueOf(reader.readLine().charAt(0));
                 reader.readLine(); //skip space
             }
 
