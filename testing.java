@@ -8,6 +8,8 @@ public class testing {
     public static String testingDataFileName;
     public static String outputTestResultsFileName;
 
+    public static String[] possibleOutputs = {"A","B","C","D","E","J","K"};
+
     public static void testingSpecs(Scanner scanner){
 
         System.out.println("Enter the trained net weight file name:");
@@ -62,8 +64,46 @@ public class testing {
                 int[] classifiedOutput = classifySample(Proj1.global_input_letter_i[i]);
 
                 // Convert classified output to letter
-                char actualLetter = (char) ('A' + i); //TODO this should be read from file
-                char classifiedLetter = (char) ('A' + i); // TODO this should be found by output
+                String actualLetter = Proj1.global_labels[i];
+                //figure out what character is being indicated
+                String outputChar = "";
+                int oneCounter = 0;
+                if(classifiedOutput[0] == 1){
+                    outputChar = "A";
+                    oneCounter++;
+                } else if(classifiedOutput[1] == 1){
+                    outputChar = "B";
+                    oneCounter++;
+
+                } else if(classifiedOutput[2] == 1){
+                    outputChar = "C";
+                    oneCounter++;
+
+                } else if(classifiedOutput[3] == 1){
+                    outputChar = "D";
+
+                    oneCounter++;
+
+                } else if(classifiedOutput[4] == 1){
+                    outputChar = "E";
+                    oneCounter++;
+
+
+                } else if(classifiedOutput[5] == 1){
+                    outputChar = "J";
+                    oneCounter++;
+
+
+                } else if(classifiedOutput[6] == 1){
+                    outputChar = "K";
+                    oneCounter++;
+
+                }
+                if(oneCounter != 1){
+                    outputChar = "Unclassified";
+                }
+
+                String classifiedLetter = outputChar;
 
                 // Write to file
                 writer.write("Actual Output:\n");
@@ -93,7 +133,6 @@ public class testing {
 
     private static int[] classifySample(double[] input) {
         int[] output = new int[Proj1.outputDimension];
-        //TODO weights are not being read from file
         for (int j = 0; j < Proj1.outputDimension; j++) {
             double netInput = 0.0;
 
@@ -102,7 +141,7 @@ public class testing {
             }
 
             // Apply threshold to determine output as -1, 0, or 1
-            output[j] = (netInput > 0) ? 1 : -1;
+            output[j] = training.classifyLinearCombination(netInput,1.0); //TODO this should use activation function with specified theta
         }
         return output;
     }

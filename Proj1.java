@@ -11,6 +11,9 @@ public class Proj1 {
     public static int[][] global_target_letter_j;
     public static double[][] global_weights_j_i;
 
+    //global labels;
+    public static String[] global_labels;
+
     //global header vals
     public static int rowDimension;
     public static int colDimension;
@@ -76,6 +79,7 @@ public class Proj1 {
             double[][] weights_j_i = new double[7][64];
             double[][] input_letter_i = new double[21][64];
             int[][] target_letter_j = new int[21][7];
+            String[] labels = new String[21];
 
             Random random = new Random();
             //Initialize weights according to user input
@@ -111,7 +115,7 @@ public class Proj1 {
                 for (int j = 0; j < 7; j++){
                     target_letter_j[letter][j] = Integer.parseInt(targetNumberValues[j]);
                 }
-                reader.readLine(); //TODO: n the future, keep this as label (maybe?)
+                labels[letter] = reader.readLine();
                 reader.readLine(); //skip space
             }
             //Print loaded data for verification
@@ -129,6 +133,7 @@ public class Proj1 {
             global_input_letter_i = input_letter_i;
             global_target_letter_j = target_letter_j;
             global_weights_j_i = weights_j_i;
+            global_labels = labels;
 
 
         } catch (IOException e) {
