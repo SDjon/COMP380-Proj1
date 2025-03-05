@@ -153,7 +153,7 @@ public class training {
         try {
             Path path = Paths.get(filename);
             StringBuilder weightData = new StringBuilder();
-            weightData.append("Epoch ").append(epoch).append(System.lineSeparator());
+            weightData.append("ThresholdTheta ").append(thresholdTheta).append(" Epoch ").append(epoch).append(System.lineSeparator());
 
             for (double[] outputNeuronWeights : weights) {
                 weightData.append(Arrays.toString(outputNeuronWeights)).append(System.lineSeparator());
