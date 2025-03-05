@@ -22,6 +22,9 @@ public class testing {
         System.out.println("Enter a file name to save the testing/deploying results:");
         outputTestResultsFileName = scanner.nextLine();
 
+        System.out.println("Enter the threshold theta:");
+        training.thresholdTheta = scanner.nextDouble();
+
         //scanner.close();
 
         //call data read method
@@ -141,7 +144,7 @@ public class testing {
             }
 
             // Apply threshold to determine output as -1, 0, or 1
-            output[j] = training.classifyLinearCombination(netInput,1.0); //TODO this should use activation function with specified theta
+            output[j] = training.classifyLinearCombination(netInput,training.thresholdTheta); //TODO this should use activation function with specified theta
         }
         return output;
     }
