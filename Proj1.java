@@ -1,5 +1,5 @@
 /**
- * Program Name: Project 1 - Perceptron Neural Networks
+ * Program Name: Project 1 - Perceptron Neural Network
  * Authors: Kian Drees, Precee Ginigeme, Jonathan Rivera, Gianpaolo Tabora
  * Last Date Modified: 3/5/2025
  * Description:
@@ -10,15 +10,17 @@
  *      determines classification sensitivity.
  * 
  * Usage: 
- *      Run the program and follow the prompts to train the perceptron.
- *      The trained weights will be saved to an output file.
+ *      Run the program and follow the prompts to train or use the perceptron net.
+ *      The trained weights will be saved to an output file. The test results will be saved to an output file.
  * 
  * Inputs:
  *      Training data file with letter representations.
  *      Learning rate, maximum epochs, threshold theta, and threshold weight change.
+ *      Test file to tes the net with a specified trained weight file.
  * 
  * Outputs:
  *      Trained weights stored in a file.
+ *      Test results stored in a file.
  *      Console message indicating convergence status.
  */
 
@@ -30,15 +32,15 @@ import java.util.Random;
 
 public class Proj1 {
 
-    //global data
+    //data
     public static double[][] global_input_letter_i;
     public static int[][] global_target_letter_j;
     public static double[][] global_weights_j_i;
 
-    //global labels;
+    //labels;
     public static String[] global_labels;
 
-    //global header vals
+    //header values from reading in data
     public static int rowDimension;
     public static int colDimension;
     public static int outputDimension;
@@ -74,6 +76,17 @@ public class Proj1 {
 
     }
 
+    /**
+     *
+     * Validates if the user input is an integer.
+     * If the input is not an integer, it prints an error message,
+     * closes the Scanner, and returns {@code true} indicating invalid input.
+     * Otherwise, it returns {@code false}.
+     *
+     * @param myScanner: the Scanner object to read input from
+     * @return {@code true} if the input is invalid (not an integer), {@code false} otherwise
+     *
+     */
     public static boolean validateInteger(Scanner myScanner) {
         if (!myScanner.hasNextInt()) {
             System.out.println("Invalid x: Please enter an integer.");
@@ -83,9 +96,15 @@ public class Proj1 {
         return false;
     }
 
-    /**
-     * this function reads the input from a file into input_letter_i and target_letter_j, which encases all the input for each letter
-     * */
+/**
+ *
+ * Reads input data from a specified file and initializes the input, target, and weight matrices
+ * for letter recognition. This method parses header information, initializes weights if required,
+ * and reads input and target letter representations into corresponding arrays.
+ *
+ * @param filename: The file to read the data from
+ *
+ */
     public static void readData(String filename){
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line; //reused var, for when contents from readline are read
