@@ -152,27 +152,4 @@ public class Proj1 {
         }
     }
 
-    public static void print2DIntArray(int[][] arr){
-        int count = 0;
-        for (int i = 0; i < arr.length; i++){
-            for (int j= 0;j< arr[i].length; j++){
-                System.out.print(arr[i][j] + " ");
-            }
-            System.out.println();
-            count++;
-        }
-        System.out.println("Number of Rows: " + count);
-    }
-    public static void print2DDoubleArray(double[][] arr){
-        int count = 0;
-        for (int i = 0; i < arr.length; i++){
-            for (int j= 0;j< arr[i].length; j++){
-                System.out.print(arr[i][j] + " ");
-            }
-            System.out.println();
-            count++;
-        }
-        System.out.println("Number of Rows: " + count);
-    }
-
 }
