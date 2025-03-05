@@ -1,5 +1,5 @@
 /**
- * Program Name: Projet 1 - Perceptron Neural Networks
+ * Program Name: Project 1 - Perceptron Neural Networks
  * Authors: Kian Drees, Precee Ginigeme, Jonathan Rivera, Gianpaolo Tabora
  * Last Date Modified: 3/5/2025
  * Description:
