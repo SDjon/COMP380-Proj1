@@ -73,13 +73,10 @@ public class Proj1 {
             numberOfLetters = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
             reader.readLine();
 
-            System.out.println(rowDimension + " rows, " + colDimension + " columns, " + outputDimension + " output neurons, " + numberOfLetters + " different letter variations");
-
-            //initialize weights and stuff
-            double[][] weights_j_i = new double[7][64];
-            double[][] input_letter_i = new double[21][64];
-            int[][] target_letter_j = new int[21][7];
-            String[] labels = new String[21];
+            double[][] weights_j_i = new double[outputDimension][rowDimension * colDimension + 1];
+            double[][] input_letter_i = new double[numberOfLetters][rowDimension * colDimension + 1];
+            int[][] target_letter_j = new int[numberOfLetters][outputDimension];
+            String[] labels = new String[numberOfLetters];
 
             Random random = new Random();
             //Initialize weights according to user input
@@ -94,7 +91,7 @@ public class Proj1 {
             for(int letter = 0; letter < numberOfLetters; letter++) {
 
                 int placeInInputVector = 1;
-                //bias is the first index of each row in the input matrix, making it 64 instead of 63
+                //bias is the first index of each row in the input matrix, bias input is always 1
                 input_letter_i[letter][0] = 1;
                 for (int row = 0; row < rowDimension; row++) {
 
@@ -118,18 +115,7 @@ public class Proj1 {
                 labels[letter] = reader.readLine();
                 reader.readLine(); //skip space
             }
-            //Print loaded data for verification
-            for (int i = 0; i < numberOfLetters; i++) {
-                System.out.print("Input Vector " + (i + 1) + ": ");
-                for (int j = 0; j < 64; j++) {
-                    System.out.print(input_letter_i[i][j] + " ");
-                }
-                System.out.println();
-            }
 
-            print2DDoubleArray(input_letter_i);
-            print2DIntArray(target_letter_j);
-            print2DDoubleArray(weights_j_i);
             global_input_letter_i = input_letter_i;
             global_target_letter_j = target_letter_j;
             global_weights_j_i = weights_j_i;
