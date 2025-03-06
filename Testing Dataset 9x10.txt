@@ -1,7 +1,7 @@
 9	// row dimension of input pattern
 10	// column dimension of input pattern
 4	// dimension of output pattern
-12	// number of tesing pairs
+16	// number of tesing pairs
 
  1 -1 -1 -1 -1 -1 -1 -1 -1 -1
  1 -1 -1 -1  1 -1 -1 -1 -1 -1
