@@ -10,6 +10,13 @@ public class testing {
 
     public static String[] possibleOutputs = {"A","B","C","D","E","J","K"};
 
+    /**
+     *
+     * Gathers testing specifications from the user via console input and initiates the testing process
+     * for the net.
+     * @param scanner The {@code Scanner} object used to read user input from the console.
+     *
+     */
     public static void testingSpecs(Scanner scanner){
 
         System.out.println("Enter the trained net weight file name:");
@@ -34,7 +41,13 @@ public class testing {
         runTesting();
         
     }
-
+    /**
+     * Reads weights from a file in the format:
+     * ThresholdTheta x Epoch y
+     * [-1.0, -1.0, 0.0, 1.0, 0.0, ...
+     * ...
+     * Extracts theta into training.thresholdTheta and all weights into 2d double array Proj1.global_weights_j_i
+     */
     public static void readWeights(){
         try (BufferedReader reader = new BufferedReader(new FileReader(trainedWeightsFileName))){
             String line;
@@ -49,10 +62,15 @@ public class testing {
                 Proj1.global_weights_j_i[j] = nextWeightArray;
             }
         } catch (Exception e){
-            System.out.println("problem getting weigths from file");
+            System.out.println("Error: problem getting weights from file");
         }
     }
-
+    /**
+     * Runs algorithm using given weights saved in Proj1.global_weights_j_i, and compare the resulting
+     * letter to the letter specified in the test file. Outputs these results to a new file in user
+     * specified filename, along with accuracy of model
+     *
+     */
     public static void runTesting() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputTestResultsFileName))) {
             int correctPredictions = 0;
@@ -66,44 +84,7 @@ public class testing {
                 // Convert classified output to letter
                 String actualLetter = Proj1.global_labels[i];
                 //figure out what character is being indicated
-                String outputChar = "";
-                int oneCounter = 0;
-                if(classifiedOutput[0] == 1){
-                    outputChar = "A";
-                    oneCounter++;
-                } else if(classifiedOutput[1] == 1){
-                    outputChar = "B";
-                    oneCounter++;
-
-                } else if(classifiedOutput[2] == 1){
-                    outputChar = "C";
-                    oneCounter++;
-
-                } else if(classifiedOutput[3] == 1){
-                    outputChar = "D";
-
-                    oneCounter++;
-
-                } else if(classifiedOutput[4] == 1){
-                    outputChar = "E";
-                    oneCounter++;
-
-
-                } else if(classifiedOutput[5] == 1){
-                    outputChar = "J";
-                    oneCounter++;
-
-
-                } else if(classifiedOutput[6] == 1){
-                    outputChar = "K";
-                    oneCounter++;
-
-                }
-                if(oneCounter != 1){
-                    outputChar = "Unclassified";
-                }
-
-                String classifiedLetter = outputChar;
+                String classifiedLetter = getString(classifiedOutput);
 
                 // Write to file
                 writer.write("Actual Output:\n");
@@ -131,14 +112,68 @@ public class testing {
         }
     }
 
+    /**
+     * Given the results of the algorithm, which outputs 7 bipolar target values, identify
+     * what letter that represents. Outputs "undecided" if there are 2 or more 1 values or
+     * if there are zero 1 values.
+     * @param classifiedOutput (int[]) target array of 7 values corresponding to the 7 possible letters.
+     * @return (String) The string letter associated with the target output, or the word "undecided"
+     * if there is not exactly one 1 in the array
+     *
+     */
+    private static String getString(int[] classifiedOutput) {
+        String resultLetter = "";
+        int oneCounter = 0;
+        if(classifiedOutput[0] == 1){
+            resultLetter = "A";
+            oneCounter++;
+        } else if(classifiedOutput[1] == 1){
+            resultLetter = "B";
+            oneCounter++;
+
+        } else if(classifiedOutput[2] == 1){
+            resultLetter = "C";
+            oneCounter++;
+
+        } else if(classifiedOutput[3] == 1){
+            resultLetter = "D";
+
+            oneCounter++;
+
+        } else if(classifiedOutput[4] == 1){
+            resultLetter = "E";
+            oneCounter++;
+
+
+        } else if(classifiedOutput[5] == 1){
+            resultLetter = "J";
+            oneCounter++;
+
+
+        } else if(classifiedOutput[6] == 1){
+            resultLetter = "K";
+            oneCounter++;
+
+        }
+        if(oneCounter != 1){
+            resultLetter = "undecided";
+        }
+
+        return resultLetter;
+    }
+    /**
+     * Returns the 7 length target array calculated using given weights in Proj1.global_weights_j_i
+     * with input from test file
+     * @param input (double[]) A double array of the input from the test file, with input[0] = 1 for bias,
+     *              and row*col more bipolar values
+     * @return (int[]) The 7 length target array, corresponding to a classified letter
+     *
+     */
     private static int[] classifySample(double[] input) {
         int[] output = new int[Proj1.outputDimension];
         for (int j = 0; j < Proj1.outputDimension; j++) {
-            double netInput = 0.0;
 
-            for (int k = 0; k < input.length; k++) {
-                netInput += input[k] * Proj1.global_weights_j_i[j][k];
-            }
+            double netInput = training.calculateY_in(Proj1.global_weights_j_i[j], input);
 
             // Apply threshold to determine output as -1, 0, or 1
             output[j] = training.classifyLinearCombination(netInput,training.thresholdTheta);

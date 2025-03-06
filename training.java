@@ -84,7 +84,7 @@ public class training {
                                      int numOutputNeurons, int numInputFeatures) {
 
         boolean hasConverged = false;
-        int epochCount = 0;
+        int epochCount = 1;
         double[] weightChangeAmounts = new double[numInputFeatures + 1];  // Track weight changes
 
         while (!hasConverged && epochCount < maxEpochs) {
