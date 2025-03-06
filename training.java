@@ -50,7 +50,7 @@ public class training {
 
         Proj1.readData(trainingDataFileName);
 
-        int epochCountAfterTraining = training.trainAlgorithm(maxEpochs, outputWeightFileName, learningRate, thresholdTheta, thresholdWeightChange, Proj1.global_weights_j_i, Proj1.global_input_letter_i, Proj1.global_target_letter_j, Proj1.outputDimension, Proj1.colDimension*Proj1.outputDimension);
+        int epochCountAfterTraining = training.trainAlgorithm(maxEpochs, outputWeightFileName, learningRate, thresholdTheta, thresholdWeightChange, Proj1.global_weights_j_i, Proj1.global_input_letter_i, Proj1.global_target_letter_j, Proj1.outputDimension, Proj1.colDimension*Proj1.rowDimension);
         if(epochCountAfterTraining == 0){
             System.out.println("Training did not converge in less than the max amount of epochs.\n");
         }
@@ -92,7 +92,7 @@ public class training {
             Arrays.fill(weightChangeAmounts, 0.0);  // Reset weight changes for this epoch
 
             for (int outputNeuron = 0; outputNeuron < numOutputNeurons; outputNeuron++) {
-                for (int sampleIdx = 0; sampleIdx < targetOutputs.length; sampleIdx++) {
+                for (int sampleIdx = 0; sampleIdx < Proj1.numberOfLetters; sampleIdx++) {
 
                     int expectedOutput = targetOutputs[sampleIdx][outputNeuron];
                     if (expectedOutput != -1 && expectedOutput != 1) {

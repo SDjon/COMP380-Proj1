@@ -141,18 +141,18 @@ public class Proj1 {
                     line = reader.readLine();
                     String[] numbers = line.trim().split("\\s+");
 
-                    for (int i = placeInInputVector; i < placeInInputVector+7; i++) {
+                    for (int i = placeInInputVector; i < placeInInputVector+colDimension; i++) {
                         //read all into 1 vector
-                        input_letter_i[letter][i] = Integer.parseInt(numbers[(i-1) % 7]);
+                        input_letter_i[letter][i] = Integer.parseInt(numbers[(i-1) % colDimension]);
                     }
-                    placeInInputVector += 7;
+                    placeInInputVector += colDimension;
                 }
                 reader.readLine(); //skip the space between input and target
 
                 //target vector data
                 line = reader.readLine();
                 String[] targetNumberValues = line.trim().split("\\s+");
-                for (int j = 0; j < 7; j++){
+                for (int j = 0; j < colDimension; j++){
                     target_letter_j[letter][j] = Integer.parseInt(targetNumberValues[j]);
                 }
                 labels[letter] = String.valueOf(reader.readLine().charAt(0));

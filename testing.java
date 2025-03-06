@@ -52,7 +52,7 @@ public class testing {
         try (BufferedReader reader = new BufferedReader(new FileReader(trainedWeightsFileName))){
             String line;
             training.thresholdTheta = Double.parseDouble(reader.readLine().trim().split(" ")[1]); //get rid of header
-            for (int j = 0; j < 7; j++){
+            for (int j = 0; j < Proj1.outputDimension; j++){
                 line = reader.readLine();
                 String[] parts = line.split("[\\[\\],]+");
                 double[] nextWeightArray = new double[64];
@@ -113,10 +113,10 @@ public class testing {
     }
 
     /**
-     * Given the results of the algorithm, which outputs 7 bipolar target values, identify
+     * Given the results of the algorithm, which outputs outputDimension bipolar target values, identify
      * what letter that represents. Outputs "undecided" if there are 2 or more 1 values or
      * if there are zero 1 values.
-     * @param classifiedOutput (int[]) target array of 7 values corresponding to the 7 possible letters.
+     * @param classifiedOutput (int[]) target array of outputDimension values corresponding to the outputDimension possible letters.
      * @return (String) The string letter associated with the target output, or the word "undecided"
      * if there is not exactly one 1 in the array
      *
@@ -162,11 +162,11 @@ public class testing {
         return resultLetter;
     }
     /**
-     * Returns the 7 length target array calculated using given weights in Proj1.global_weights_j_i
+     * Returns the outputDimension length target array calculated using given weights in Proj1.global_weights_j_i
      * with input from test file
      * @param input (double[]) A double array of the input from the test file, with input[0] = 1 for bias,
      *              and row*col more bipolar values
-     * @return (int[]) The 7 length target array, corresponding to a classified letter
+     * @return (int[]) The outputDimension length target array, corresponding to a classified letter
      *
      */
     private static int[] classifySample(double[] input) {
