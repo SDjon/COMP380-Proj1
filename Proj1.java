@@ -126,7 +126,7 @@ public class Proj1 {
             if (initWeightsBool == 1){
                 for(int row = 0; row < colDimension; row++){
                     for(int col = 0; col < (colDimension*rowDimension); col++){
-                        weights_j_i[row][col] = random.nextDouble(-0.5,0.5);
+                        weights_j_i[row][col] = -0.5 + (random.nextDouble() * (0.5 - (-0.5)));
                     }
                 }
             }
