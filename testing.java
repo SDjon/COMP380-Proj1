@@ -55,8 +55,9 @@ public class testing {
             for (int j = 0; j < Proj1.outputDimension; j++){
                 line = reader.readLine();
                 String[] parts = line.split("[\\[\\],]+");
-                double[] nextWeightArray = new double[64];
-                for (int i =0; i< 64; i++){
+                int weightArrayLen = (Proj1.rowDimension*Proj1.colDimension) + 1;
+                double[] nextWeightArray = new double[weightArrayLen];
+                for (int i =0; i< weightArrayLen; i++){
                     nextWeightArray[i] = Double.parseDouble(parts[i+1]);
                 }
                 Proj1.global_weights_j_i[j] = nextWeightArray;
@@ -96,7 +97,7 @@ public class testing {
                 writer.write(Arrays.toString(classifiedOutput).replace(",", "").replace("[", "").replace("]", "") + "\n\n");
 
                 // Compare actual vs classified
-                if (Arrays.equals(actualOutput, classifiedOutput)) {
+                if (actualLetter.equals(classifiedLetter)) {
                     correctPredictions++;
                 }
             }

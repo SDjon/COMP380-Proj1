@@ -152,7 +152,7 @@ public class Proj1 {
                 //target vector data
                 line = reader.readLine();
                 String[] targetNumberValues = line.trim().split("\\s+");
-                for (int j = 0; j < colDimension; j++){
+                for (int j = 0; j < outputDimension; j++){
                     target_letter_j[letter][j] = Integer.parseInt(targetNumberValues[j]);
                 }
                 labels[letter] = String.valueOf(reader.readLine().charAt(0));
