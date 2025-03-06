@@ -124,36 +124,12 @@ public class testing {
     private static String getString(int[] classifiedOutput) {
         String resultLetter = "";
         int oneCounter = 0;
-        if(classifiedOutput[0] == 1){
-            resultLetter = "A";
-            oneCounter++;
-        } else if(classifiedOutput[1] == 1){
-            resultLetter = "B";
-            oneCounter++;
+        for (int i = 0; i < Proj1.outputDimension; i++){
 
-        } else if(classifiedOutput[2] == 1){
-            resultLetter = "C";
-            oneCounter++;
-
-        } else if(classifiedOutput[3] == 1){
-            resultLetter = "D";
-
-            oneCounter++;
-
-        } else if(classifiedOutput[4] == 1){
-            resultLetter = "E";
-            oneCounter++;
-
-
-        } else if(classifiedOutput[5] == 1){
-            resultLetter = "J";
-            oneCounter++;
-
-
-        } else if(classifiedOutput[6] == 1){
-            resultLetter = "K";
-            oneCounter++;
-
+            if(classifiedOutput[i] == 1) {
+                resultLetter = Proj1.global_labels[i];
+                oneCounter++;
+            }
         }
         if(oneCounter != 1){
             resultLetter = "undecided";
